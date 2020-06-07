@@ -1,7 +1,16 @@
+#!/usr/bin/env python
+# coding=utf-8
+"""
+    Copyright (C) 2019 * Ltd. All rights reserved.
 
-#其中有一个Plane类，来存储飞机的各种行为
+    Editor      : PyCharm
+    File name   : plane.py
+    Author      : Charles zhang
+    Created date: 2020/6/7 11:04
+    Description :
 
-import pygame
+"""
+
 
 class Plane:
     def __init__(self, screen, setting):
@@ -9,18 +18,19 @@ class Plane:
         self.screen = screen
         self.setting = setting
 
-        self.img_plane = pygame.image.load(self.setting.plane_img)
-        self.rect = self.img_plane.get_rect()   # 得到小飞机的矩形区域
-        self.screen_rect = self.screen.get_rect() # 得到screen的矩形区域
+        self.img_plane = setting.plane_img  # 得到小飞机的图像
+        self.rect = self.img_plane.get_rect()  # 得到小飞机的矩形区域
+        self.screen_rect = self.screen.get_rect()  # 得到screen的矩形区域
 
-        #get_rect会返回Surface的矩形的区域，.centerx和.bottom是其两个属性
+        # get_rect会返回Surface的矩形的区域，.centerx和.bottom是其两个属性
 
         # 将小飞机放到底部中央
-        self.rect.centerx = self.screen_rect.centerx #水平居中
-        self.rect.bottom = self.screen_rect.bottom #底部
+        self.rect.centerx = self.screen_rect.centerx  # 水平居中
+        self.rect.bottom = self.screen_rect.bottom  # 底部
 
         # 标志位
         self.mv_right = False
+        self.mv_left = False
 
     def blitme(self):
         # 在指定位置绘制小飞机
@@ -29,8 +39,13 @@ class Plane:
     # 定义一个调整战机位置的方法
     def update(self):
         '''根据标志位来调整战机的位置'''
-        if self.mv_right <= self.setting.screen_width: # 当未接触到边缘时，允许移动
+        screen_rect = self.screen.get_rect()
+        if self.mv_right and self.rect.right <= screen_rect.right:  # 当未接触到边缘时，允许移动
             self.rect.centerx += self.setting.plane_speed
 
-        if self.mv_left >= 0:
+        if self.mv_left and self.rect.left >= 0:
             self.rect.centerx -= self.setting.plane_speed
+
+    # 让战机居中
+    def center_plane(self):
+        self.rect.centerx = self.screen_rect.centerx
