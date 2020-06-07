@@ -21,21 +21,26 @@ class Settings:
         self.screen_width = 1000
         self.screen_height = 600
         self.bg_img = pygame.image.load('./img/bgimg4.jpg')  # 相对路径
+
+        # 对背景图片进行设置
+        self.bg_img = pygame.transform.scale(self.bg_img, (self.screen_width, self.screen_height))
+
         self.title = '雷霆战机'
 
         # 飞机的设置
         self.plane_limit = 3  # 飞机的生命值
         self.plane_img = pygame.image.load('./img/plane1_mini.png')
+        self.plane_img = pygame.transform.scale(self.plane_img, (50, 50))
 
         # 子弹的设置
 
         self.bullet_width = 3  # 子弹的宽
         self.bullet_height = 15  # 子弹的高
         self.bullet_color = (255, 255, 255)  # 子弹的颜色
-        self.bullet_allowed = 5  # 限制子弹的数量
 
         # 飞船的设置
         self.spaceship_img = pygame.image.load("./img/spaceship1_mini.png")
+        self.spaceship_img = pygame.transform.scale(self.spaceship_img, (80, 80))
         self.spaceship_drop_speed = 10  # 飞船下降的速度
 
         # 游戏升级设置
@@ -53,6 +58,8 @@ class Settings:
 
         self.spaceship_points = 10  # 击落一个飞船得分
 
+        self.bullet_allowed = 5  # 限制子弹的数量
+
     def increase_speed(self):
         '''提高游戏节奏'''
         self.plane_speed *= self.speedup_scale  # 增加飞机速度
@@ -60,3 +67,5 @@ class Settings:
         self.spaceship_speed *= self.speedup_scale  # 增加飞船的速度
 
         self.spaceship_points = int(self.spaceship_points * self.score_scale)  # 增加飞船的得分
+
+        self.bullet_allowed += 1

@@ -176,14 +176,15 @@ def create_spaceship(setting, screen, spaceships, spaceship_number, number_rows)
     spaceship_width = spaceship.rect.width  # 飞船的宽度
     spaceship.x = spaceship_width + 2 * spaceship_width * spaceship_number  # 计算飞船出现的起始位置
     spaceship.rect.x = spaceship.x
-    spaceship.rect.y = spaceship.rect.height + 2 * spaceship.rect.height * number_rows
+    spaceship.rect.y = spaceship.rect.height + 2 * spaceship.rect.height * number_rows + 40
     spaceships.add(spaceship)
 
 
 def create_fleet(setting, screen, spaceships, plane):
     spaceship = Spaceship(setting, screen)
     number_spaceship_x = get_number_spaceship_x(setting, spaceship.rect.width)
-    number_rows = get_number_spaceship_y(setting, plane.rect.height, spaceship.rect.height)
+    # number_rows = get_number_spaceship_y(setting, plane.rect.height, spaceship.rect.height)
+    number_rows = 3  # 暂时不自动设置行数，采用固定行数
 
     for row_number in range(number_rows):
         for spaceship_number in range(number_spaceship_x):
